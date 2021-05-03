@@ -31,13 +31,13 @@ describe('Payment Tests', () => {
     })
 
         it('Url should be correct', async () => {
-                   expect(await driver.getCurrentUrl()).toContain(url) //ensures current url matches
+            expect(await driver.getCurrentUrl()).toContain(url) //ensures current url matches
         })
 
         it('Displayed username is correct', async () => { //ensures displayed username is katharina bernier
-                const userNameEl = await getElementByXpath(driver, userNameXPath)
-                const userNameActual = await userNameEl.getText()
-                    expect(userNameActual).toContain("@Katharina_Bernier")
+            const userNameEl = await getElementByXpath(driver, userNameXPath)
+            const userNameActual = await userNameEl.getText()
+                expect(userNameActual).toContain("@Katharina_Bernier")
         })
 
         it('Step 2 icon should be highlighted blue', async () => { //ensures step 2 icon is not greyed out
@@ -65,9 +65,9 @@ describe('Payment Tests', () => {
         })
 
         it('Correct message is displayed after payment', async () => { //ensures correct message is displayed
-                const displayMessageEl = await getElementByXpath(driver, displayMessageXPath)
-                const displayMessage = await displayMessageEl.getText()
-                    expect(displayMessage).toContain("Paid $" + amount + ".00 for Testing")
+            const displayMessageEl = await getElementByXpath(driver, displayMessageXPath)
+            const displayMessage = await displayMessageEl.getText()
+                expect(displayMessage).toContain("Paid $" + amount + ".00 for Testing")
         })
 })
 

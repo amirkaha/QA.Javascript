@@ -5,10 +5,11 @@ jest.setTimeout(30000)
 var url = 'http://localhost:3000';
 var username = 'Katharina_Bernier';
 var password = 's3cret';
-var amount = 100;
+var amount = 1;
 var builder = new Builder().forBrowser('chrome')
 var driver = builder.build()
 
+var homeCss = '[data-test="sidenav-home"]';
 var topNewCss = '[data-test="nav-top-new-transaction"]'; //locators (xpath/css/classname)
 var firstPersonCss = '[data-test="user-list-item-qywYp6hS0U"]';
 var submitPaymentCss = '[data-test="transaction-create-submit-payment"]';
@@ -16,6 +17,7 @@ var userNameXPath = "//*[@id=\"root\"]/div/div/div/div[1]/div[2]/h6[2]";
 var balanceCss = '[data-test="sidenav-user-balance"]';
 var displayMessageXPath = "//*[@id=\"root\"]/div/main/div[2]/div/div/div[2]/div[2]/div/div/h2";
 var step2IconClass = "MuiSvgIcon-root MuiStepIcon-root MuiStepIcon-active";
+var transAmountXPath = "//*[@id=\"root\"]/div/main/div[2]/div/div/div/div[3]/div/div/div[1]/li/div/div/div[2]/div[2]/span";
 
 // TODO: Complete the Login and Payment flow tests
 describe('Payment Tests', () => {
@@ -27,7 +29,7 @@ describe('Payment Tests', () => {
     })
 
     afterAll (async() => { //close the driver after tests
-        await driver.quit()
+       await driver.quit()
     })
 
         it('Url should be correct', async () => {
@@ -69,6 +71,15 @@ describe('Payment Tests', () => {
             const displayMessage = await displayMessageEl.getText()
                 expect(displayMessage).toContain("Paid $" + amount + ".00 for Testing")
         })
+
+       it('Most recent transaction should be correctly displayed', async () => { //transaction record should be correct
+                const homeEl = await getElementByCss(driver, homeCss)
+                homeEl.click()
+                const transAmountEl = await getElementByXpath(driver, transAmountXPath)
+                const transAmount = await transAmountEl.getText()
+                    expect(transAmount).toContain("-$" + amount  + ".00")
+        })
+
 })
 
 function typeInById(id,text) { //functions to type in text and click

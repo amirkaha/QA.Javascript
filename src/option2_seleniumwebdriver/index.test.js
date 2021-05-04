@@ -72,7 +72,7 @@ describe('Payment Tests', () => {
                 expect(displayMessage).toContain("Paid $" + amount + ".00 for Testing")
         })
 
-       it('Most recent transaction should be correctly displayed', async () => { //transaction record should be correct
+       it('Most recent transaction should be displayed with correct deducted amount', async () => { //transaction record should be correct
                 const homeEl = await getElementByCss(driver, homeCss)
                 homeEl.click()
                 const transAmountEl = await getElementByXpath(driver, transAmountXPath)
